@@ -15,13 +15,6 @@
   let headerOffset = 104;
   let frameRequested = false;
 
-  const readPreference = (key) => {
-    try { return window.localStorage.getItem(key); } catch { return null; }
-  };
-  const savePreference = (key, value) => {
-    try { window.localStorage.setItem(key, value); } catch { /* Optional. */ }
-  };
-
   // Theme portraits
   //
   // The file for the current theme is picked while index.html is still
@@ -92,7 +85,9 @@
     });
   }
 
-  function applyTheme(theme, persist = false) {
+  // The theme is never written to storage: dark is the only starting state,
+  // and light exists only until the next load of this page.
+  function applyTheme(theme) {
     const isDark = theme === "dark";
     root.dataset.theme = isDark ? "dark" : "light";
     if (themeColor) themeColor.content = isDark ? "#121210" : "#f0eee9";
@@ -102,25 +97,19 @@
       themeToggle.title = label;
     }
     showActivePortraits();
-    if (persist) savePreference("tristan-theme", root.dataset.theme);
   }
 
-  applyTheme(root.dataset.theme);
+  applyTheme("dark");
   if (themeToggle) {
     themeToggle.hidden = false;
     themeToggle.addEventListener("click", (event) => {
-      applyTheme(root.dataset.theme === "dark" ? "light" : "dark", true);
+      applyTheme(root.dataset.theme === "dark" ? "light" : "dark");
       if (event.detail !== 0) themeToggle.blur();
     });
     // Start the other portrait as soon as a toggle looks likely.
     themeToggle.addEventListener("pointerenter", prefetchOtherPortraits, { once: true });
     themeToggle.addEventListener("focus", prefetchOtherPortraits, { once: true });
   }
-  window.addEventListener("storage", (event) => {
-    if (event.key === "tristan-theme" || event.key === null) {
-      applyTheme(readPreference("tristan-theme"));
-    }
-  });
 
   // Header measurement and mobile disclosure
   function measureHeader() {
