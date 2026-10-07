@@ -1,0 +1,1013 @@
+<!doctype html>
+<html lang="en" class="no-js" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tristan Reyes is a digital marketing and paid search specialist focused on campaign strategy, lead tracking, and measurable performance.">
+  <meta name="theme-color" content="#f0eee9">
+  <title>Tristan Reyes | Digital Marketing Portfolio</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/favicon-512x512.png">
+  <link rel="icon" href="assets/icons/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+  <!-- Two families, five weights, one request: preconnect first, swap so text
+       stays visible while the webfonts arrive. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap">
+  <script src="js/theme-init.js"></script>
+  <!-- Decide before the first paint whether this session gets the greeting
+       loader. The class is written while the document is still parsing, so
+       the overlay belongs to the first frame instead of flashing in over an
+       already-painted hero, and its colours come from whatever theme
+       theme-init.js restored above. -->
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var seen = false;
+      var preview = false;
+      try { seen = sessionStorage.getItem("tristan-portfolio-loader-seen-v1") === "1"; } catch (error) { /* Storage is optional. */ }
+      try { preview = new URLSearchParams(window.location.search).get("showLoader") === "1"; } catch (error) { /* Older engines fall back to the session state. */ }
+      if (seen && !preview) return;
+      try { sessionStorage.setItem("tristan-portfolio-loader-seen-v1", "1"); } catch (error) { /* Storage is optional. */ }
+      root.classList.add("loader-active");
+      // Belt and braces: if js/loader.js never runs, the page is handed back
+      // instead of staying behind a stuck overlay.
+      window.setTimeout(function () { root.classList.remove("loader-active"); }, 6500);
+    })();
+  </script>
+  <link rel="stylesheet" href="css/tailwind.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/loader.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <!-- Experience accordion safety net. Without scripting the three stories
+       stay open and readable, and the same happens if js/main.js never gets
+       far enough to mark the section ready, so a dead control can never leave
+       the career history hidden. -->
+  <noscript>
+    <style>
+      .experience-item:not(.is-open) .experience-panel { grid-template-rows: 1fr; }
+      .experience-item:not(.is-open) .experience-panel__body { opacity: 1; }
+    </style>
+  </noscript>
+  <script>
+    window.__experienceFallbackTimer = window.setTimeout(function () {
+      if (!document.documentElement.classList.contains("experience-ready")) {
+        document.documentElement.classList.add("experience-fallback");
+      }
+    }, 3000);
+  </script>
+  <script src="js/loader.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <!-- Greeting loader: static markup so the first frame can contain it, but
+       it only paints while html carries .loader-active. js/loader.js plays the
+       sequence, then drops this node once the screen has lifted away. -->
+  <div class="loader" data-loader>
+    <p class="loader__greeting" aria-hidden="true">
+      <span class="loader__dot"></span>
+      <span class="loader__words">
+        <span class="loader__word is-active" data-loader-word>Hello</span>
+        <span class="loader__word" data-loader-word></span>
+      </span>
+    </p>
+  </div>
+
+  <div class="page-background" aria-hidden="true"></div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"><span data-scroll-progress></span></div>
+
+  <header class="site-header" data-header data-open="false">
+    <div class="header-inner">
+      <a class="brand" href="#home" aria-label="Tristan Reyes, back to home">
+        <span class="brand-mark" aria-hidden="true">TR</span>
+        <span class="brand-copy">
+          <strong>Tristan Reyes</strong>
+          <small>Digital Marketing</small>
+        </span>
+      </a>
+
+      <nav class="primary-nav" id="primary-nav" aria-label="Portfolio navigation">
+        <ul class="nav-list">
+          <li><a class="nav-link" href="#services">Services</a></li>
+          <li><a class="nav-link" href="#proof-of-work">Proof of Work</a></li>
+          <li><a class="nav-link" href="#experience">Experience</a></li>
+          <li><a class="nav-link" href="#tools">Tools</a></li>
+          <li><a class="nav-link" href="#about">About</a></li>
+          <li><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions flex items-center">
+        <button class="icon-button theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode" hidden>
+          <svg class="icon sun-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="3.5"></circle>
+            <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.5 1.5M17.6 17.6l1.5 1.5M6.4 17.6l-1.5 1.5M19.1 4.9l-1.5 1.5"></path>
+          </svg>
+          <svg class="icon moon-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.5 14.3A8.5 8.5 0 0 1 9.7 3.5 8.6 8.6 0 1 0 20.5 14.3Z"></path>
+          </svg>
+        </button>
+        <a href="mailto:reyestristanreyes@gmail.com?subject=Portfolio%20Inquiry" class="hire-me-button" aria-label="Hire Me - open email">
+          Hire Me
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"></path></svg>
+        </a>
+        <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-controls="primary-nav" aria-expanded="false" aria-label="Open navigation menu" hidden>
+          <svg class="icon menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+          <svg class="icon close-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"></path></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="hero" id="home" data-section tabindex="-1" aria-labelledby="home-title" aria-label="Tristan Reyes, Digital Marketing Specialist">
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+          <span>DIGITAL MARKETING&nbsp;·&nbsp;</span>
+          <span>DIGITAL MARKETING&nbsp;·&nbsp;</span>
+        </div>
+      </div>
+
+      <div class="portrait-stage" data-image-slot data-state="pending">
+        <div class="hero-profile" role="img" aria-label="Tristan Reyes" data-portrait-group>
+          <img
+            class="hero-profile__image hero-profile__image--light"
+            data-portrait="light"
+            data-portrait-src="assets/images/profile-light-mode.png"
+            alt=""
+            width="1254"
+            height="1254"
+            fetchpriority="high"
+            decoding="async"
+            draggable="false"
+          >
+          <img
+            class="hero-profile__image hero-profile__image--dark"
+            data-portrait="dark"
+            data-portrait-src="assets/images/profile-dark-mode.png"
+            alt=""
+            width="1254"
+            height="1254"
+            fetchpriority="high"
+            decoding="async"
+            draggable="false"
+          >
+          <noscript>
+            <img
+              class="hero-profile__image hero-profile__image--light"
+              src="assets/images/profile-light-mode.png"
+              alt=""
+              width="1254"
+              height="1254"
+              decoding="async"
+              draggable="false"
+            >
+          </noscript>
+        </div>
+        <div class="portrait-fallback"><strong>Tristan Reyes</strong></div>
+      </div>
+
+      <!-- Choose the hero portrait while the document is still parsing: only
+           the outfit matching the current theme is given a src, so the first
+           painted frame can never show the wrong one. Reveal, failures and
+           theme swaps are handled by js/main.js. -->
+      <script>
+        (function () {
+          var variant = document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+          document.querySelectorAll('.portrait-stage [data-portrait="' + variant + '"]').forEach(function (image) {
+            if (image.dataset.portraitSrc) image.setAttribute("src", image.dataset.portraitSrc);
+          });
+        })();
+      </script>
+
+      <div class="hero-content section-shell">
+        <h1 class="sr-only" id="home-title">Tristan Reyes, Digital Marketing Specialist</h1>
+      </div>
+
+      <div class="hero-footer section-shell">
+        <a class="scroll-cue" href="#services">
+          <span>Explore portfolio</span>
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16m-6-6 6 6 6-6"></path></svg>
+        </a>
+      </div>
+    </section>
+
+<section class="content-section services-section" id="services" data-section tabindex="-1" aria-labelledby="services-title">
+      <div class="section-shell">
+        <header class="services-head reveal">
+          <p class="eyebrow">Services</p>
+          <h2 class="services-title" id="services-title">Three ways to<br>work together.</h2>
+        </header>
+
+        <div class="services-grid">
+          <article class="service-card reveal">
+            <div class="service-card__head">
+              <p class="service-card__meta">01 &middot; SERVICE</p>
+            </div>
+            <div class="service-card__body">
+              <h3 class="service-card__title">Google Ads Audit &amp; Strategy</h3>
+              <p class="service-card__subtitle">FIND THE OPPORTUNITIES</p>
+              <p class="service-card__desc">A complete review of your existing Google Ads account to uncover wasted spend, tracking gaps, structural problems, and opportunities for stronger campaign performance.</p>
+              <ul class="service-card__list">
+                <li>Search terms and wasted-spend review</li>
+                <li>Campaign, keyword, and bidding audit</li>
+                <li>Prioritized optimization roadmap</li>
+              </ul>
+            </div>
+            <div class="service-card__foot">
+              <a class="service-card__cta" href="#contact">INQUIRE<span class="service-card__arrow" aria-hidden="true">&#8599;</span></a>
+            </div>
+          </article>
+
+          <article class="service-card service-card--featured reveal">
+            <div class="service-card__head">
+              <p class="service-card__meta">02 &middot; SERVICE</p>
+              <p class="service-card__badge">MOST POPULAR</p>
+            </div>
+            <div class="service-card__body">
+              <h3 class="service-card__title">Ongoing Ads Management</h3>
+              <p class="service-card__subtitle">THE WHOLE ACCOUNT, HANDLED</p>
+              <p class="service-card__desc">Hands-on Google Ads management focused on generating qualified leads, improving campaign efficiency, and making every advertising decision understandable.</p>
+              <ul class="service-card__list">
+                <li>Weekly campaign optimization</li>
+                <li>Search terms, negatives, bids, and budgets</li>
+                <li>Clear performance reporting and recommendations</li>
+              </ul>
+            </div>
+            <div class="service-card__foot">
+              <a class="service-card__cta" href="#contact">INQUIRE<span class="service-card__arrow" aria-hidden="true">&#8599;</span></a>
+            </div>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-card__head">
+              <p class="service-card__meta">03 &middot; SERVICE</p>
+            </div>
+            <div class="service-card__body">
+              <h3 class="service-card__title">Conversion Tracking &amp; Consulting</h3>
+              <p class="service-card__subtitle">MAKE EVERY LEAD MEASURABLE</p>
+              <p class="service-card__desc">Accurate conversion tracking and practical support for businesses that need reliable data, troubleshooting, or an experienced second set of eyes.</p>
+              <ul class="service-card__list">
+                <li>GA4 and Google Tag Manager setup</li>
+                <li>CallRail and WhatConverts tracking</li>
+                <li>Strategy, troubleshooting, and consultation</li>
+              </ul>
+            </div>
+            <div class="service-card__foot">
+              <a class="service-card__cta" href="#contact">INQUIRE<span class="service-card__arrow" aria-hidden="true">&#8599;</span></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+<section class="proof-work" id="proof-of-work" data-section tabindex="-1" aria-labelledby="pow-title">
+      <div class="proof-work__inner">
+        <header class="proof-work__header">
+          <div>
+            <p class="section-label">SELECTED WORK</p>
+            <h2 class="section-title" id="pow-title">Work Gallery</h2>
+            <p class="proof-work__intro">A selection of campaigns, strategy, and optimization work.</p>
+          </div>
+        </header>
+
+        <!-- Horizontal track carousel: one clipping viewport holds a single
+             flex track, and every slide is exactly one viewport wide. -->
+        <div class="pow-carousel" id="pow-carousel" data-carousel tabindex="0" role="region" aria-roledescription="carousel" aria-label="Work gallery, selected campaign results">
+          <div class="pow-viewport">
+            <div class="pow-track" data-pow-track>
+
+              <!-- Slide 1: AI Interview Preparation Platform (United Kingdom) -->
+              <article class="pow-slide" data-pow-slide data-index="0" role="group" aria-roledescription="slide" aria-label="Slide 1 of 4" aria-hidden="false">
+                <div class="pow-slide__media" data-image-slot data-state="pending">
+                  <img
+                    data-image
+                    data-image-src="assets/images/work/work-gallery-5.png"
+                    alt="Google Ads results for an AI interview-preparation platform in the United Kingdom, showing 13.5K conversions."
+                    width="1584"
+                    height="993"
+                    loading="eager"
+                    fetchpriority="high"
+                    decoding="async"
+                    draggable="false"
+                  >
+                  <span class="pow-slide__mask" aria-hidden="true"></span>
+                  <div class="pow-slide__copy">
+                    <p class="pow-slide__label">AI INTERVIEW PREPARATION · UNITED KINGDOM</p>
+                    <p class="pow-slide__headline">13.5K conversions for an AI interview-preparation platform in the United Kingdom.</p>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Slide 2: AI Workout Buddy (United States) -->
+              <article class="pow-slide" data-pow-slide data-index="1" role="group" aria-roledescription="slide" aria-label="Slide 2 of 4" aria-hidden="true">
+                <div class="pow-slide__media" data-image-slot data-state="pending">
+                  <img
+                    data-image
+                    data-image-src="assets/images/work/work-gallery-2.png"
+                    alt="Google Ads results for an AI-powered workout buddy platform in the United States, showing 2,110 subscriptions."
+                    width="1584"
+                    height="993"
+                    loading="lazy"
+                    decoding="async"
+                    draggable="false"
+                  >
+                  <span class="pow-slide__mask" aria-hidden="true"></span>
+                  <div class="pow-slide__copy">
+                    <p class="pow-slide__label">AI WORKOUT BUDDY · UNITED STATES</p>
+                    <p class="pow-slide__headline">2,110 subscriptions for an AI-powered workout-buddy platform in the United States.</p>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Slide 3: Performance Max Cleaning Campaign (Detroit, Michigan) -->
+              <article class="pow-slide" data-pow-slide data-index="2" role="group" aria-roledescription="slide" aria-label="Slide 3 of 4" aria-hidden="true">
+                <div class="pow-slide__media" data-image-slot data-state="pending">
+                  <img
+                    data-image
+                    data-image-src="assets/images/work/work-gallery-1.png"
+                    alt="Performance Max campaign results for a cleaning company in Detroit, Michigan, showing 151 conversions."
+                    width="1584"
+                    height="993"
+                    loading="lazy"
+                    decoding="async"
+                    draggable="false"
+                  >
+                  <span class="pow-slide__mask" aria-hidden="true"></span>
+                  <div class="pow-slide__copy">
+                    <p class="pow-slide__label">PERFORMANCE MAX · DETROIT, MICHIGAN</p>
+                    <p class="pow-slide__headline">151 conversions for a cleaning company in Detroit, Michigan.</p>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Slide 4: WhatConverts Multi-Client Tracking -->
+              <article class="pow-slide" data-pow-slide data-index="3" role="group" aria-roledescription="slide" aria-label="Slide 4 of 4" aria-hidden="true">
+                <div class="pow-slide__media" data-image-slot data-state="pending">
+                  <img
+                    data-image
+                    data-image-src="assets/images/work/work-gallery-3.png"
+                    alt="WhatConverts dashboard used to manage lead tracking across multiple mobile detailing client accounts."
+                    width="1584"
+                    height="993"
+                    loading="lazy"
+                    decoding="async"
+                    draggable="false"
+                  >
+                  <span class="pow-slide__mask" aria-hidden="true"></span>
+                  <div class="pow-slide__copy">
+                    <p class="pow-slide__label">WHATCONVERTS · MULTI-CLIENT TRACKING</p>
+                    <p class="pow-slide__headline">Managed WhatConverts tracking for multiple mobile-detailing clients at a marketing agency.</p>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <!-- Controls below the stage: arrows, then the four pagination dots,
+               so nothing ever covers the campaign metrics in the screenshots. -->
+          <div class="pow-controls">
+            <button class="pow-control" type="button" data-pow-prev aria-label="Previous slide" aria-controls="pow-carousel">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg>
+            </button>
+
+            <div class="pow-dots" role="group" aria-label="Choose a slide">
+              <button class="pow-dot is-active" type="button" data-pow-dot="0" aria-label="Go to slide 1" aria-controls="pow-carousel" aria-current="true"></button>
+              <button class="pow-dot" type="button" data-pow-dot="1" aria-label="Go to slide 2" aria-controls="pow-carousel"></button>
+              <button class="pow-dot" type="button" data-pow-dot="2" aria-label="Go to slide 3" aria-controls="pow-carousel"></button>
+              <button class="pow-dot" type="button" data-pow-dot="3" aria-label="Go to slide 4" aria-controls="pow-carousel"></button>
+            </div>
+
+            <button class="pow-control" type="button" data-pow-next aria-label="Next slide" aria-controls="pow-carousel">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<section class="content-section process-section" id="process" data-section tabindex="-1" aria-labelledby="process-title">
+      <div class="section-shell">
+        <header class="process-head reveal">
+          <span class="process-accent" aria-hidden="true"></span>
+          <h2 class="process-title" id="process-title">A repeatable system, not a guess.</h2>
+        </header>
+
+        <ol class="process-panel">
+          <li class="process-step reveal" tabindex="0">
+            <div class="process-step__top">
+              <span class="process-step__num" aria-hidden="true">01</span>
+              <span class="process-step__dot" aria-hidden="true"></span>
+            </div>
+            <h3 class="process-step__title">Discovery</h3>
+            <p class="process-step__desc">I learn your goals, audience, offer, margins, lead quality, and what a valuable conversion means for your business.</p>
+          </li>
+
+          <li class="process-step reveal" tabindex="0">
+            <div class="process-step__top">
+              <span class="process-step__num" aria-hidden="true">02</span>
+              <span class="process-step__dot" aria-hidden="true"></span>
+            </div>
+            <h3 class="process-step__title">Audit &amp; Roadmap</h3>
+            <p class="process-step__desc">I review campaigns, tracking, search demand, competitors, and wasted spend, then define the most important priorities.</p>
+          </li>
+
+          <li class="process-step reveal" tabindex="0">
+            <div class="process-step__top">
+              <span class="process-step__num" aria-hidden="true">03</span>
+              <span class="process-step__dot" aria-hidden="true"></span>
+            </div>
+            <h3 class="process-step__title">Build &amp; Launch</h3>
+            <p class="process-step__desc">I create the campaign structure, keywords, ads, assets, audiences, budgets, settings, and measurement needed for launch.</p>
+          </li>
+
+          <li class="process-step reveal" tabindex="0">
+            <div class="process-step__top">
+              <span class="process-step__num" aria-hidden="true">04</span>
+              <span class="process-step__dot" aria-hidden="true"></span>
+            </div>
+            <h3 class="process-step__title">Optimize &amp; Report</h3>
+            <p class="process-step__desc">I refine search terms, bids, budgets, locations, devices, and creative, then clearly explain what changed and why.</p>
+          </li>
+
+          <li class="process-step reveal" tabindex="0">
+            <div class="process-step__top">
+              <span class="process-step__num" aria-hidden="true">05</span>
+              <span class="process-step__dot" aria-hidden="true"></span>
+            </div>
+            <h3 class="process-step__title">Grow &amp; Iterate</h3>
+            <p class="process-step__desc">I scale what proves effective and adjust the strategy as performance, seasonality, customer behavior, and business goals evolve.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="content-section experience-section" id="experience" data-section tabindex="-1" aria-labelledby="experience-title">
+      <div class="section-shell">
+        <header class="section-intro reveal">
+          <div>
+            <p class="eyebrow">CAREER / 2022—2026</p>
+            <h2 class="section-title" id="experience-title">Experience</h2>
+          </div>
+          <p class="section-lead">These roles taught me how to manage the numbers, support a team, and work directly with clients.</p>
+        </header>
+
+        <!-- Editorial index: three full-width rows, one open at a time.
+             The open state is written in the markup so the first painted
+             frame already matches the settled layout. -->
+        <div class="experience-list reveal" data-experience-list>
+          <article class="experience-item is-open" data-experience-item>
+            <h3 class="experience-heading">
+              <button class="experience-trigger" type="button" id="experience-trigger-1" aria-expanded="true" aria-controls="experience-panel-1">
+                <span class="experience-meta">
+                  <span class="experience-meta__index">01</span>
+                  <span class="experience-meta__date"><time datetime="2022">2022</time>—<time datetime="2025">2025</time></span>
+                </span>
+                <span class="experience-role">
+                  <span class="experience-role__company">Webb Marketing Solutions</span>
+                  <span class="experience-role__title">Senior Digital Marketing Specialist</span>
+                </span>
+                <span class="experience-preview">Where I really sharpened my Google Ads skills across a mix of U.S. businesses.</span>
+                <span class="experience-control" aria-hidden="true">
+                  <svg class="icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>
+                </span>
+              </button>
+            </h3>
+            <div class="experience-panel" id="experience-panel-1" role="region" aria-labelledby="experience-trigger-1">
+              <div class="experience-panel__inner">
+                <div class="experience-panel__body">
+                  <div class="experience-story">
+                    <p>Webb Marketing Solutions is where I really developed my skills in Google Ads. I managed campaigns for U.S. businesses across different industries, and every account came with a different challenge. Some needed better keywords, some were wasting money on the wrong searches, and others needed a completely new strategy.</p>
+                    <p>I handled keyword research, account audits, search term reviews, ad copy, bidding, budget allocation, and ongoing optimization. By studying the data and finding new market opportunities, I helped increase client revenue by approximately 25%. This experience taught me to look beyond clicks and focus on what actually helps a business grow.</p>
+                  </div>
+                  <div class="experience-highlight">
+                    <p class="experience-highlight__value">~25%</p>
+                    <p class="experience-highlight__label">Approximate increase in client revenue</p>
+                  </div>
+                  <ul class="experience-capabilities">
+                    <li>Google Ads</li>
+                    <li>Keyword Research</li>
+                    <li>Account Audits</li>
+                    <li>Search Term Analysis</li>
+                    <li>Ad Copy</li>
+                    <li>Bidding</li>
+                    <li>Budget Allocation</li>
+                    <li>Ongoing Optimization</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="experience-item" data-experience-item>
+            <h3 class="experience-heading">
+              <button class="experience-trigger" type="button" id="experience-trigger-2" aria-expanded="false" aria-controls="experience-panel-2">
+                <span class="experience-meta">
+                  <span class="experience-meta__index">02</span>
+                  <span class="experience-meta__date"><time datetime="2024">2024</time>—<time datetime="2026">2026</time></span>
+                  <span class="experience-meta__tag">PART-TIME</span>
+                </span>
+                <span class="experience-role">
+                  <span class="experience-role__company">Vergara Advertising</span>
+                  <span class="experience-role__title">Digital Marketing Support</span>
+                </span>
+                <span class="experience-preview">A part-time support role that taught me how to work inside an existing campaign process.</span>
+                <span class="experience-control" aria-hidden="true">
+                  <svg class="icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>
+                </span>
+              </button>
+            </h3>
+            <div class="experience-panel" id="experience-panel-2" role="region" aria-labelledby="experience-trigger-2">
+              <div class="experience-panel__inner">
+                <div class="experience-panel__body">
+                  <div class="experience-story">
+                    <p>At Vergara Advertising, I worked part-time alongside their full-time digital marketer. My role was to support the day-to-day campaign work, help with assigned advertising tasks, and make sure important updates did not get overlooked.</p>
+                    <p>This experience showed me how much good teamwork matters in digital marketing. I learned how to step into an existing process, understand what the team needed, and help keep campaigns organized and moving in the right direction.</p>
+                  </div>
+                  <div class="experience-highlight">
+                    <p class="experience-highlight__value experience-highlight__value--text">PART-TIME</p>
+                    <p class="experience-highlight__label">Campaign support alongside a full-time digital marketer</p>
+                  </div>
+                  <ul class="experience-capabilities">
+                    <li>Campaign Support</li>
+                    <li>Advertising Tasks</li>
+                    <li>Campaign Updates</li>
+                    <li>Organization</li>
+                    <li>Team Collaboration</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="experience-item" data-experience-item>
+            <h3 class="experience-heading">
+              <button class="experience-trigger" type="button" id="experience-trigger-3" aria-expanded="false" aria-controls="experience-panel-3">
+                <span class="experience-meta">
+                  <span class="experience-meta__index">03</span>
+                  <span class="experience-meta__date"><time datetime="2026-02">February</time>—<time datetime="2026-08">August 2026</time></span>
+                  <span class="experience-meta__tag">DIRECT CLIENT</span>
+                </span>
+                <span class="experience-role">
+                  <span class="experience-role__company">World of Floors</span>
+                  <span class="experience-role__title">Google Ads Specialist</span>
+                </span>
+                <span class="experience-preview">A direct-client experience focused on turning flooring searches into real inquiries.</span>
+                <span class="experience-control" aria-hidden="true">
+                  <svg class="icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>
+                </span>
+              </button>
+            </h3>
+            <div class="experience-panel" id="experience-panel-3" role="region" aria-labelledby="experience-trigger-3">
+              <div class="experience-panel__inner">
+                <div class="experience-panel__body">
+                  <div class="experience-story">
+                    <p>World of Floors was one of my direct clients, which gave me the chance to work closely with the business instead of through an agency. I managed their Google Ads with a clear goal: reach people who were actively looking for flooring services and turn that interest into real inquiries.</p>
+                    <p>Working directly with the client helped me understand their goals, communicate campaign updates clearly, and make decisions based on what mattered to the business. It made the work feel more personal because I could see how every change in the account connected to their growth.</p>
+                  </div>
+                  <div class="experience-highlight">
+                    <p class="experience-highlight__value experience-highlight__value--text">DIRECT CLIENT</p>
+                    <p class="experience-highlight__label">Google Ads management for a flooring business</p>
+                  </div>
+                  <ul class="experience-capabilities">
+                    <li>Google Ads</li>
+                    <li>Lead Generation</li>
+                    <li>Search Intent</li>
+                    <li>Campaign Optimization</li>
+                    <li>Client Communication</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section tools-section" id="tools" data-section tabindex="-1" aria-labelledby="tools-title">
+      <div class="section-shell">
+        <header class="section-intro reveal">
+          <div>
+            <p class="eyebrow">Tools &amp; Platforms</p>
+            <h2 class="section-title" id="tools-title">The toolkit<br><span>behind the work.</span></h2>
+          </div>
+          <p class="section-lead">A connected toolkit for advertising, tracking, reporting, and collaboration.</p>
+        </header>
+
+        <div class="tools-layout">
+          <div class="tool-column">
+            <div class="tool-grid reveal" role="group" aria-label="Tools and platforms">
+              <article class="tool-tile" data-logo-slot data-stagger><span class="tool-logo"><img width="32" height="32" loading="lazy" decoding="async" data-tool-logo data-logo-src="assets/images/tools/google_ads_logo.png" alt=""><b>GA</b></span><h3>Google Ads</h3></article>
+              <article class="tool-tile" data-logo-slot data-stagger><span class="tool-logo"><img width="32" height="32" loading="lazy" decoding="async" data-tool-logo data-logo-src="assets/images/tools/bing_ads_logo.png" alt=""><b>MA</b></span><h3>Microsoft Ads</h3></article>
+              <article class="tool-tile" data-logo-slot data-stagger><span class="tool-logo"><img width="32" height="32" loading="lazy" decoding="async" data-tool-logo data-logo-src="assets/images/tools/chat_gpt_ads_logo.png" alt=""><b>AI</b></span><h3>ChatGPT Ads</h3></article>
+              <article class="tool-tile" data-logo-slot data-stagger><span class="tool-logo"><img width="32" height="32" loading="lazy" decoding="async" data-tool-logo data-logo-src="assets/images/tools/keyword_planner_logo.png" alt=""><b>KP</b></span><h3>Keyword Planner</h3></article>
+
+              <article class="tool-tile" data-logo-slot data-stagger><span class="tool-logo"><img width="32" height="32" loading="lazy" decoding="async" data-tool-logo data-logo-src="assets/images/tools/ga4_logo.png" alt=""><b>G4</b></span><h3>GA4</h3></article>
+              <article class="tool-tile" data-logo-slot data-stagger><span class="tool-logo"><img width="32" height="32" loading="lazy" decoding="async" data-tool-logo data-logo-src="assets/images/tools/gtm_logo.png" alt=""><b>TM</b></span><h3>Tag Manager</h3></article>
+              <article class="tool-tile" data-logo-slot data-stagger><span class="tool-logo"><img width="32" height="32" loading="lazy" decoding="async" data-tool-logo data-logo-src="assets/images/tools/call_rail_logo.png" alt=""><b>CR</b></span><h3>CallRail</h3></article>
+              <article class="tool-tile" data-logo-slot data-stagger><span class="tool-logo"><img width="32" height="32" loading="lazy" decoding="async" data-tool-logo data-logo-src="assets/images/tools/whatconverts_logo.png" alt=""><b>WC</b></span><h3>WhatConverts</h3></article>
+
+              <article class="tool-tile" data-logo-slot data-stagger><span class="tool-logo"><img width="32" height="32" loading="lazy" decoding="async" data-tool-logo data-logo-src="assets/images/tools/looker_studio_logo.png" alt=""><b>LS</b></span><h3>Looker Studio</h3></article>
+              <article class="tool-tile" data-logo-slot data-stagger><span class="tool-logo"><img width="32" height="32" loading="lazy" decoding="async" data-tool-logo data-logo-src="assets/images/tools/airtable_logo.png" alt=""><b>AT</b></span><h3>Airtable</h3></article>
+              <article class="tool-tile" data-logo-slot data-stagger><span class="tool-logo"><img width="32" height="32" loading="lazy" decoding="async" data-tool-logo data-logo-src="assets/images/tools/google_trends_logo.png" alt=""><b>GT</b></span><h3>Google Trends</h3></article>
+              <article class="tool-tile" data-logo-slot data-stagger><span class="tool-logo"><img width="32" height="32" loading="lazy" decoding="async" data-tool-logo data-logo-src="assets/images/tools/page_speed_insight_logo.png" alt=""><b>PS</b></span><h3>PageSpeed</h3></article>
+
+              <article class="tool-tile" data-logo-slot data-stagger><span class="tool-logo"><img width="32" height="32" loading="lazy" decoding="async" data-tool-logo data-logo-src="assets/images/tools/google_docs_logo.png" alt=""><b>GD</b></span><h3>Google Docs</h3></article>
+              <article class="tool-tile" data-logo-slot data-stagger><span class="tool-logo"><img width="32" height="32" loading="lazy" decoding="async" data-tool-logo data-logo-src="assets/images/tools/google_sheets_logo.png" alt=""><b>GS</b></span><h3>Google Sheets</h3></article>
+              <article class="tool-tile" data-logo-slot data-stagger><span class="tool-logo"><img width="32" height="32" loading="lazy" decoding="async" data-tool-logo data-logo-src="assets/images/tools/gmail_logo.png" alt=""><b>GM</b></span><h3>Gmail</h3></article>
+              <article class="tool-tile" data-logo-slot data-stagger><span class="tool-logo"><img width="32" height="32" loading="lazy" decoding="async" data-tool-logo data-logo-src="assets/images/tools/slack_logo.png" alt=""><b>SL</b></span><h3>Slack</h3></article>
+            </div>
+
+            <div class="tool-subgroup reveal">
+              <p class="tool-subgroup-label">Supporting web development</p>
+              <div class="tool-grid" role="group" aria-label="Web development skills">
+                <article class="tool-tile" data-logo-slot data-stagger><span class="tool-logo"><img width="32" height="32" loading="lazy" decoding="async" data-tool-logo data-logo-src="assets/images/tools/html_logo.png" alt=""><b>HT</b></span><h3>HTML</h3></article>
+                <article class="tool-tile" data-logo-slot data-stagger><span class="tool-logo"><img width="32" height="32" loading="lazy" decoding="async" data-tool-logo data-logo-src="assets/images/tools/css_logo.png" alt=""><b>CS</b></span><h3>CSS</h3></article>
+                <article class="tool-tile" data-logo-slot data-stagger><span class="tool-logo"><img width="32" height="32" loading="lazy" decoding="async" data-tool-logo data-logo-src="assets/images/tools/java_logo.png" alt=""><b>JV</b></span><h3>Java</h3></article>
+                <article class="tool-tile" data-logo-slot data-stagger><span class="tool-logo"><img width="32" height="32" loading="lazy" decoding="async" data-tool-logo data-logo-src="assets/images/tools/github_logo.png" alt=""><b>GH</b></span><h3>GitHub</h3></article>
+              </div>
+            </div>
+          </div>
+
+<div class="tool-capabilities grid gap-4">
+            <article class="capability-card reveal" data-stagger>
+              <span class="capability-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                  <path d="M9 9h6M9 12h6M9 15h6"></path>
+                  <path d="M12 9v6"></path>
+                </svg>
+              </span>
+              <p class="eyebrow">Reach & relevance</p>
+              <h3>Paid media<br>& campaign strategy</h3>
+              <p>Plan campaigns around demand, search intent, useful targeting, and clear business objectives.</p>
+              <ul class="tool-tags"><li>Google Ads</li><li>Microsoft Advertising</li><li>ChatGPT Ads</li><li>Keyword research</li></ul>
+            </article>
+
+            <article class="capability-card reveal" data-stagger>
+              <span class="capability-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"></path>
+                  <path d="M12 12a8 8 0 0 1 8 8M12 12a8 8 0 0 1-8 8M12 12a8 8 0 0 1-8-8M12 12a8 8 0 0 1 8-8"></path>
+                </svg>
+              </span>
+              <p class="eyebrow">Measure what matters</p>
+              <h3>Tracking<br>& lead attribution</h3>
+              <p>Connect ads with website actions, calls, forms, and reports while validating the data used for decisions.</p>
+              <ul class="tool-tags"><li>GA4</li><li>GTM</li><li>CallRail</li><li>WhatConverts</li><li>UTM tracking</li></ul>
+            </article>
+          </div>
+        </div>
+
+        <article class="reporting-card reveal" data-stagger>
+          <div>
+            <p class="eyebrow">Reporting &amp; workflow</p>
+            <h3>Clear data. Organized work.</h3>
+          </div>
+          <p>Looker Studio, Airtable, Google Workspace, and team communication tools keep performance data understandable and campaign work moving.</p>
+          <ul class="tool-tags"><li>Dashboards</li><li>Campaign trackers</li><li>Documentation</li><li>Collaboration</li></ul>
+        </article>
+      </div>
+    </section>
+
+<section class="content-section about-section" id="about" data-section tabindex="-1" aria-labelledby="about-title">
+      <div class="section-shell">
+        <header class="section-intro reveal">
+          <div>
+            <p class="eyebrow">About Me</p>
+            <h2 class="section-title" id="about-title">I&rsquo;m into the numbers.<br>But I care about what they actually do.</h2>
+          </div>
+        </header>
+
+        <div class="about-grid reveal">
+          <div class="about-profile-col" data-stagger>
+            <div class="about-portrait">
+              <div class="about-profile-photo" role="img" aria-label="Tristan Reyes" data-portrait-group>
+                <img
+                  class="about-profile-photo__image about-profile-photo__image--light"
+                  data-portrait="light"
+                  data-portrait-src="assets/images/profile-light-mode.png"
+                  alt=""
+                  width="1254"
+                  height="1254"
+                  loading="lazy"
+                  decoding="async"
+                  draggable="false"
+                >
+                <img
+                  class="about-profile-photo__image about-profile-photo__image--dark"
+                  data-portrait="dark"
+                  data-portrait-src="assets/images/profile-dark-mode.png"
+                  alt=""
+                  width="1254"
+                  height="1254"
+                  loading="lazy"
+                  decoding="async"
+                  draggable="false"
+                >
+                <noscript>
+                  <img
+                    class="about-profile-photo__image about-profile-photo__image--light"
+                    src="assets/images/profile-light-mode.png"
+                    alt=""
+                    width="1254"
+                    height="1254"
+                    loading="lazy"
+                    decoding="async"
+                    draggable="false"
+                  >
+                </noscript>
+              </div>
+            </div>
+            <div class="profile-info">
+              <h3>Tristan Reyes</h3>
+              <p class="role">Digital Marketing Specialist</p>
+            </div>
+          </div>
+
+          <div class="about-story-col" data-stagger>
+            <p>Hey, I&rsquo;m Tristan. I work on paid search campaigns, lead generation, and the tracking that tells us whether any of it is actually working.</p>
+            <blockquote class="about-statement">
+              <p>I&rsquo;m the kind of marketer who wants to know where every lead came from, what made someone click, and whether the campaign is bringing in real opportunities, not just making the dashboard look busy.</p>
+            </blockquote>
+            <p>The goal is pretty simple: spend smarter, track things properly, and put more budget behind what&rsquo;s actually working.</p>
+            <p>I&rsquo;m big on clear reporting and straight answers. If something is performing, I&rsquo;ll show you why. If it isn&rsquo;t, I&rsquo;ll dig into it, fix what can be fixed, and cut the stuff that&rsquo;s wasting budget. No mystery metrics and no reports full of numbers with zero context.</p>
+            <p>I&rsquo;m always learning, testing, and sharpening my skills as advertising platforms change, and honestly, that&rsquo;s part of what I enjoy about the work.</p>
+          </div>
+
+          <div class="about-style-col" data-stagger>
+            <div class="trait-deck" role="group" aria-label="Personal traits">
+              <button class="trait-card is-top" type="button" tabindex="0">
+                <span class="trait-card__decoration" aria-hidden="true"></span>
+                <span class="trait-card__name">Analytical</span>
+              </button>
+              <button class="trait-card is-back-1" type="button" tabindex="-1">
+                <span class="trait-card__decoration" aria-hidden="true"></span>
+                <span class="trait-card__name">Detail-oriented</span>
+              </button>
+              <button class="trait-card is-back-2" type="button" tabindex="-1">
+                <span class="trait-card__decoration" aria-hidden="true"></span>
+                <span class="trait-card__name">Problem solver</span>
+              </button>
+              <button class="trait-card is-back-3" type="button" tabindex="-1">
+                <span class="trait-card__decoration" aria-hidden="true"></span>
+                <span class="trait-card__name">Adaptable</span>
+              </button>
+              <button class="trait-card is-hidden-back" type="button" tabindex="-1">
+                <span class="trait-card__decoration" aria-hidden="true"></span>
+                <span class="trait-card__name">Growth-minded</span>
+              </button>
+              <button class="trait-card is-hidden-back" type="button" tabindex="-1">
+                <span class="trait-card__decoration" aria-hidden="true"></span>
+                <span class="trait-card__name">Organized</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section certificate-section" id="certifications" data-section tabindex="-1" aria-labelledby="certificate-title">
+      <div class="section-shell">
+        <header class="section-intro reveal">
+          <div>
+            <p class="eyebrow">Certifications</p>
+            <h2 class="section-title" id="certificate-title">Learning,<br><span>put into practice.</span></h2>
+          </div>
+          <p class="section-lead">Formal training alongside hands-on experience in planning, managing, and optimizing Google Ads campaigns.</p>
+        </header>
+
+        <article class="certificate-card reveal" data-stagger>
+          <div class="certificate-copy">
+            <p class="eyebrow">Google Ads</p>
+            <h3>Google Ads Search Certification</h3>
+            <p>Demonstrates practical knowledge of Google Ads Search campaign planning, keyword strategy, bidding, measurement, and optimization.</p>
+            <dl class="certificate-facts">
+              <div><dt>Issued</dt><dd><time datetime="2026-03-26">March 26, 2026</time></dd></div>
+              <div><dt>Expires</dt><dd><time datetime="2027-03-26">March 26, 2027</time></dd></div>
+            </dl>
+          </div>
+          <div class="certificate-media" data-image-slot data-state="pending">
+            <img data-image data-image-src="assets/images/certifications/google-ads-search.png" alt="Google Ads Search Certification awarded to Tristan Reyes" width="1600" height="1000" loading="lazy" decoding="async">
+            <div class="media-fallback">
+              <strong>Google Ads Search Certification</strong>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="content-section contact-section" id="contact" data-section tabindex="-1" aria-labelledby="contact-title">
+      <div class="section-shell contact-shell">
+        <div class="contact-panel reveal" data-contact-panel>
+
+          <div class="contact-info" data-stagger>
+            <h2 class="contact-info__headline" id="contact-title">Let&rsquo;s talk about your <span>next campaign.</span></h2>
+
+            <p class="contact-info__copy">Campaign strategy, paid media, conversion tracking, optimization, or an opportunity to discuss. Send the details through the form and I will reply by email.</p>
+
+            <span class="contact-info__signal" aria-hidden="true"><i></i></span>
+
+            <ul class="contact-methods">
+              <li>
+                <a class="contact-method" href="mailto:reyestristanreyes@gmail.com">
+                  <span class="contact-method__icon" aria-hidden="true">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                      <path d="m3.5 6.5 8.5 6.5 8.5-6.5"></path>
+                    </svg>
+                  </span>
+                  <span class="contact-method__body">
+                    <span class="contact-method__label">Email</span>
+                    <span class="contact-method__value">reyestristanreyes@gmail.com</span>
+                  </span>
+                  <span class="contact-method__arrow" aria-hidden="true">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M5 12h14M12 5l7 7-7 7"></path>
+                    </svg>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a class="contact-method" href="tel:+639219282896">
+                  <span class="contact-method__icon" aria-hidden="true">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M5 4h3.6l1.4 4.5-2.2 1.8a13 13 0 0 0 6 6l1.8-2.2 4.4 1.4V19a2 2 0 0 1-2.2 2A16 16 0 0 1 3 5.2 2 2 0 0 1 5 4Z"></path>
+                    </svg>
+                  </span>
+                  <span class="contact-method__body">
+                    <span class="contact-method__label">Phone</span>
+                    <span class="contact-method__value">+63 921 928 2896</span>
+                  </span>
+                  <span class="contact-method__arrow" aria-hidden="true">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M5 12h14M12 5l7 7-7 7"></path>
+                    </svg>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a class="contact-method" href="https://v2.onlinejobs.ph/jobseekers/info/4863381" target="_blank" rel="noopener noreferrer">
+                  <span class="contact-method__icon" aria-hidden="true">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="3" y="7" width="18" height="13" rx="2"></rect>
+                      <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                  </span>
+                  <span class="contact-method__body">
+                    <span class="contact-method__label">OnlineJobs.ph</span>
+                    <span class="contact-method__value">View my freelancer profile</span>
+                  </span>
+                  <span class="contact-method__arrow" aria-hidden="true">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M5 12h14M12 5l7 7-7 7"></path>
+                    </svg>
+                  </span>
+                </a>
+              </li>
+            </ul>
+
+            <p class="contact-info__note">Every message goes straight to my inbox. I read and reply personally.</p>
+
+            <ul class="contact-tags">
+              <li>Google Ads</li>
+              <li>Campaign Strategy</li>
+              <li>Conversion Tracking</li>
+              <li>Performance Optimization</li>
+            </ul>
+          </div>
+
+          <div class="contact-main" data-stagger>
+            <div class="contact-panel__head" data-contact-head>
+              <p class="eyebrow">Send a message</p>
+              <p class="contact-panel__hint">All fields are required.</p>
+            </div>
+
+            <!-- Posts to Web3Forms, which forwards the submission to the address
+                 linked to the access key. The visitor's email becomes the
+                 Reply-To address, so replies go straight back to them.
+                 The key in the input below is the live one; rotate it from the
+                 Web3Forms dashboard if it ever needs to change.
+                 Domain restriction (who may submit) is configured in the
+                 Web3Forms dashboard, not in this file. -->
+            <form class="contact-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST" aria-busy="false" data-contact-form>
+              <input type="hidden" name="access_key" value="cb43d546-1901-471e-a6c8-5c1bbb3351d0">
+              <input type="hidden" name="from_name" value="Tristan Reyes Portfolio">
+              <input class="contact-honeypot" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off">
+
+              <div class="contact-form__grid">
+                <div class="form-field">
+                  <label for="contact-name">Full Name</label>
+                  <input type="text" id="contact-name" name="name" required autocomplete="name" maxlength="120" aria-describedby="contact-name-error">
+                  <p class="field-error" id="contact-name-error" hidden></p>
+                </div>
+
+                <div class="form-field">
+                  <label for="contact-email">Email Address</label>
+                  <input type="email" id="contact-email" name="email" required autocomplete="email" inputmode="email" maxlength="254" placeholder="you@example.com" aria-describedby="contact-email-error">
+                  <p class="field-error" id="contact-email-error" hidden></p>
+                </div>
+
+                <div class="form-field form-field--full">
+                  <label for="contact-subject">Subject</label>
+                  <input type="text" id="contact-subject" name="subject" required autocomplete="off" maxlength="160" placeholder="Campaign audit, collaboration, role" aria-describedby="contact-subject-error">
+                  <p class="field-error" id="contact-subject-error" hidden></p>
+                </div>
+
+                <div class="form-field form-field--full">
+                  <label for="contact-message">Message</label>
+                  <textarea id="contact-message" name="message" required rows="5" maxlength="5000" placeholder="A few lines about your goals, timeline, and budget." aria-describedby="contact-message-error"></textarea>
+                  <p class="field-error" id="contact-message-error" hidden></p>
+                </div>
+              </div>
+
+              <div class="contact-alert" data-contact-alert data-state="hidden">
+                <span class="contact-alert__icon" aria-hidden="true">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <path d="M12 7.5v5"></path>
+                    <path d="M12 16.2h.01"></path>
+                  </svg>
+                </span>
+                <div class="contact-alert__body">
+                  <p class="contact-alert__text" role="alert" data-contact-alert-text></p>
+                  <p class="contact-alert__detail" data-contact-alert-detail hidden></p>
+                  <div class="contact-alert__actions">
+                    <button class="contact-alert__retry" type="button" data-contact-retry>Try again</button>
+                    <a class="contact-alert__link" data-contact-alert-link href="mailto:reyestristanreyes@gmail.com">reyestristanreyes@gmail.com</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="contact-form__footer">
+                <button class="button button-primary contact-submit" type="submit" data-contact-submit>
+                  <span class="contact-spinner" data-contact-spinner hidden aria-hidden="true"></span>
+                  <span data-contact-submit-text>Send Message</span>
+                  <svg class="icon contact-submit__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                  </svg>
+                </button>
+                <p class="contact-form__note">Your details are only used to reply to this message.</p>
+              </div>
+            </form>
+
+            <div class="contact-success" data-contact-success hidden tabindex="-1">
+              <div class="contact-success__visual" aria-hidden="true">
+                <span class="success-ripple success-ripple--a"></span>
+                <span class="success-ripple success-ripple--b"></span>
+                <span class="contact-success__mark">
+                  <svg viewBox="0 0 72 72" fill="none" aria-hidden="true">
+                    <circle class="success-ring" cx="36" cy="36" r="25"></circle>
+                    <path class="success-check" d="m25.5 37 7.5 7.5L47 29"></path>
+                  </svg>
+                </span>
+                <span class="success-spark success-spark--a"></span>
+                <span class="success-spark success-spark--b"></span>
+                <span class="success-spark success-spark--c"></span>
+                <span class="success-spark success-spark--d"></span>
+              </div>
+              <p class="contact-success__label">Message delivered</p>
+              <h3 class="contact-success__title">Message sent successfully.</h3>
+              <p class="contact-success__text">Thank you for reaching out. Your message has been delivered, and I&rsquo;ll get back to you as soon as I can.</p>
+              <button class="button button-outline contact-success__reset" type="button" data-contact-reset>Send another message</button>
+            </div>
+
+            <p class="sr-only" role="status" aria-live="polite" data-contact-live></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="section-shell">
+      <p>© <span data-year>2026</span> Tristan Reyes · Digital Marketing</p>
+      <div>
+        <a href="mailto:reyestristanreyes@gmail.com" aria-label="Email Tristan Reyes">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+            <path d="m3.5 6.5 8.5 6.5 8.5-6.5"></path>
+          </svg>
+        </a>
+        <a href="tel:+639219282896">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 4h3.6l1.4 4.5-2.2 1.8a13 13 0 0 0 6 6l1.8-2.2 4.4 1.4V19a2 2 0 0 1-2.2 2A16 16 0 0 1 3 5.2 2 2 0 0 1 5 4Z"></path>
+          </svg>
+          +63 921 928 2896
+        </a>
+        <a href="#home">Back to top
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 20V4m-6 6 6-6 6 6"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

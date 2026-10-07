@@ -1,0 +1,219 @@
+/* Homepage: moving type behind the full transparent portrait. */
+.hero {
+  position: relative;
+  isolation: isolate;
+  height: 100vh;
+  height: 100svh;
+  min-height: 40rem;
+  overflow: hidden;
+}
+
+/* No wash layer across the hero: an opaque gradient here repainted a flat
+   band of --page over the bottom of the section, erased the global grain and
+   left a seam where the hero meets the next section. The portrait and the
+   hero copy both sit above z-index 1, so only the background was affected by
+   it and the one material can now run uninterrupted behind the whole hero. */
+
+/* Hero heading: the h1 is visually hidden for screen readers while the
+   portrait and the outlined marquee carry the hero, but it still follows the
+   display type scale (regular weight, tight leading, slight negative tracking). */
+.hero-content {
+  position: relative;
+  z-index: 4;
+  padding-top: calc(var(--header-height) + 3.3rem);
+}
+
+.hero-content h1 {
+  font-size: clamp(2.75rem, 8vw, 7.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+.marquee {
+  position: absolute;
+  z-index: 1;
+  top: 49%;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-slide 28s linear infinite;
+  will-change: transform;
+}
+
+.marquee-track span {
+  display: block;
+  flex: 0 0 auto;
+  color: transparent;
+  -webkit-text-stroke: 1.25px color-mix(in srgb, var(--text) 45%, transparent);
+  font-family: var(--font-sans);
+  font-size: clamp(8rem, 18vw, 21rem);
+  font-weight: var(--weight-regular);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+html[data-page-hidden="true"] .marquee-track,
+html[data-hero-hidden="true"] .marquee-track { animation-play-state: paused; }
+
+@keyframes marquee-slide {
+  to { transform: translateX(-50%); }
+}
+
+.portrait-stage {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: grid;
+  place-items: end center;
+  width: min(66rem, 98%);
+  height: min(calc(100% - 5.8rem), 62rem);
+  margin-inline: auto;
+  pointer-events: none;
+  perspective: 1000px;
+}
+
+.hero-profile {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  grid-area: 1 / 1;
+}
+
+.hero-profile__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  object-position: center bottom;
+  user-select: none;
+  -webkit-user-drag: none;
+  filter: drop-shadow(0 1.5rem 2rem rgba(15, 20, 28, 0.08));
+  transition: opacity 300ms ease;
+  pointer-events: none;
+}
+
+/* Both outfits sit on top of each other and neither is painted until the
+   group is flagged with data-shown, which js/main.js does only once the file
+   for the current theme has decoded. The outgoing portrait therefore stays on
+   screen while the incoming one arrives, and a theme swap cross-fades instead
+   of flashing the wrong suit. */
+.hero-profile__image--light,
+.hero-profile__image--dark {
+  opacity: 0;
+}
+
+.hero-profile[data-shown="light"] .hero-profile__image--light {
+  opacity: 1;
+}
+
+.hero-profile[data-shown="dark"] .hero-profile__image--dark {
+  opacity: 1;
+}
+
+html.no-js .hero-profile__image--light {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-profile__image {
+    transition: none;
+  }
+}
+
+.portrait-fallback {
+  display: none;
+  grid-area: 1 / 1;
+  place-self: center;
+  padding: 1.5rem 2rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--muted);
+  background: var(--surface-glass);
+  text-align: center;
+}
+.portrait-fallback strong { display: block; color: var(--text); font-size: 1.15rem; font-weight: var(--weight-medium); }
+.portrait-fallback span { display: block; margin-top: 0.35rem; font-size: 0.8rem; }
+.portrait-stage[data-state="missing"] .hero-profile { display: none; }
+.portrait-stage[data-state="missing"] .portrait-fallback { display: block; }
+
+.hero-footer {
+  position: absolute;
+  z-index: 5;
+  right: 0;
+  bottom: 1.3rem;
+  left: 0;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  pointer-events: none;
+}
+
+.hero-footer > * { pointer-events: auto; }
+
+.scroll-cue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 2.75rem;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 2rem;
+  color: var(--text);
+  background: var(--surface-glass);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-label-tight);
+  text-transform: uppercase;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.scroll-cue .icon { width: 0.9rem; height: 0.9rem; transition: transform var(--transition-fast); }
+.scroll-cue:hover { border-color: var(--line-strong); transform: translateY(-2px); box-shadow: 0 8px 24px color-mix(in srgb, var(--text) 10%, transparent); }
+.scroll-cue:hover .icon { transform: translateY(2px); }
+.scroll-cue:active { transform: scale(0.98); }
+
+@media (max-width: 48rem) {
+  .hero { height: min(100svh, calc(100vw + 12rem)); min-height: 34rem; }
+  .hero-content { padding-top: calc(var(--header-height) + 2rem); }
+  .marquee { top: 50%; }
+  .marquee-track span {
+    font-size: clamp(7rem, 31vw, 13rem);
+    -webkit-text-stroke-width: 1px;
+  }
+  .portrait-stage {
+    width: min(100%, 48rem);
+    height: calc(100% - 6.4rem);
+  }
+}
+
+@media (max-width: 40rem) {
+  .hero { height: min(100svh, calc(100vw + 14rem)); min-height: 32rem; }
+  .hero-content { padding-top: calc(var(--header-height) + 1.25rem); }
+  .portrait-stage { width: 108%; max-width: none; height: calc(100% - 6rem); left: -4%; right: -4%; }
+  .scroll-cue { min-height: 2.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; transform: none; }
+  .tool-tile:hover { transform: none; }
+  .portrait-stage .hero-profile__image { transform: none; transition: none; }
+  .scroll-cue { transition: none; }
+  .scroll-cue:hover { transform: none; box-shadow: none; }
+  .scroll-cue:hover .icon { transform: none; }
+}
+

@@ -1,0 +1,14 @@
+@import "tailwindcss" source(none);
+@source "../index.html";
+
+/*
+  Tailwind provides layout utilities used in index.html.
+  The portfolio-specific design system remains organized in css/global.css,
+  css/home.css, and css/pages.css.
+*/
+@theme {
+  --font-sans: "Space Grotesk", system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, "Liberation Mono", "Courier New", monospace;
+}

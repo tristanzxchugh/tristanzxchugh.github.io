@@ -1,0 +1,708 @@
+/* Shared design system and fixed one-page navigation. */
+:root {
+  color-scheme: light;
+
+  /* Typography system: Space Grotesk for everything editorial,
+     JetBrains Mono for interface labels, navigation, numbers and buttons. */
+  --font-sans: "Space Grotesk", system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, "Liberation Mono", "Courier New", monospace;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --tracking-label: 0.14em;
+  --tracking-label-tight: 0.12em;
+  --tracking-heading: -0.02em;
+
+  /* Warm bone paper: neutral enough to stay clean, warm enough to feel
+     printed rather than emitted by a screen. */
+  --page: #f0eee9;
+  --surface: #fbfaf7;
+  --surface-soft: #e7e4dd;
+  --surface-glass: rgba(251, 250, 247, 0.86);
+  --text: #15130f;
+  --muted: #5b564d;
+  --faint: #847e73;
+  --line: #d6d2ca;
+  --line-strong: #b3ac9f;
+  --accent: #245edb;
+  --accent-soft: #dce7ff;
+  --danger: #b42318;
+  --hero: #e8e5de;
+  --header-shadow: 0 18px 55px rgba(38, 30, 20, 0.1);
+  --card-shadow: 0 24px 70px rgba(38, 30, 20, 0.08);
+  --card-shadow-hover: 0 32px 90px rgba(38, 30, 20, 0.12);
+
+  /* Page material: one flat base colour plus a single fine noise tile, both
+     painted by .page-background. --page-grain is the whole texture budget:
+     high enough that an empty area still reads as matte paper at 100% zoom,
+     low enough that it never becomes dust, fog or film noise over content. */
+  --page-grain: 0.028;
+  --page-grain-size: 256px;
+  --content-width: 80rem;
+  --header-height: 6.5rem;
+  --radius-sm: 0.75rem;
+  --radius: 1.1rem;
+  --radius-lg: 1.6rem;
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms cubic-bezier(.2,.7,.2,1);
+  --transition-slow: 400ms cubic-bezier(.2,.7,.2,1);
+  --ease-out: cubic-bezier(.2,.7,.2,1);
+  --ease-spring: cubic-bezier(.34,1.56,.64,1);
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  /* Warm charcoal, closer to espresso than to navy: the surface keeps a
+     trace of brown so it reads as black paper, not as a switched-off screen.
+     Deliberately near-black but never pure #000. */
+  --page: #121210;
+  --surface: #211e1b;
+  --surface-soft: #2a2622;
+  --surface-glass: rgba(30, 27, 24, 0.88);
+  --text: #f1ede6;
+  --muted: #a8a197;
+  --faint: #7b746a;
+  --line: #38332e;
+  --line-strong: #585149;
+  --accent: #8eafff;
+  --accent-soft: #1f3155;
+  --danger: #ff8a80;
+  --hero: #171513;
+  --header-shadow: 0 18px 55px rgba(0, 0, 0, 0.32);
+  --card-shadow: 0 24px 70px rgba(0, 0, 0, 0.2);
+  --card-shadow-hover: 0 32px 90px rgba(0, 0, 0, 0.28);
+
+  /* The grain lifts slightly more on charcoal than on bone paper, so dark
+     mode carries the stronger value of the pair. */
+  --page-grain: 0.048;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height);
+  /* Also the document canvas colour, so an elastic overscroll on touch
+     devices never exposes a white gap behind the fixed material layer. */
+  background: var(--page);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+body {
+  min-width: 0;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: clip;
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: var(--weight-regular);
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+/* One continuous material behind the whole site: a flat base colour plus a
+   single fine noise tile. Fixed, non-interactive and painted at z-index -1,
+   so it sits under every section, card, image and glyph, can never capture a
+   click and never grows the document.
+
+   The grain is this layer's own ::after rather than a separate overlay.
+   Because the fixed element forms a stacking context, the tile composites
+   only against the base colour beneath it: nothing in the content tree blends
+   with it, so text, portraits, screenshots and carousel media stay exactly as
+   sharp as they are without it. Blending is plain normal at a very low
+   opacity — no overlay, no blend mode, no blur, no gradients. */
+.page-background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: var(--page);
+  transition: background-color var(--transition-slow);
+}
+
+.page-background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("../assets/images/background-grain.png");
+  background-repeat: repeat;
+  background-size: var(--page-grain-size);
+  opacity: var(--page-grain);
+}
+
+h1, h2, h3, p, figure, dl, dd { margin: 0; }
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--tracking-heading);
+  text-wrap: balance;
+}
+h1, h2, h3 { line-height: 1.06; }
+p { text-wrap: pretty; }
+ul, ol { margin: 0; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea { font: inherit; }
+button { color: inherit; cursor: pointer; }
+img, svg { display: block; max-width: 100%; }
+img { height: auto; }
+/* Theme portraits only receive a src from JavaScript, and an <img> without
+   one still paints its empty frame. Without scripting that frame would sit on
+   top of the <noscript> portrait, so the inert copies are dropped outright. */
+html.no-js [data-portrait]:not([src]) { display: none; }
+[hidden] { display: none !important; }
+
+::selection { color: #ffffff; background: #245edb; }
+:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 4px;
+  }
+  [tabindex="-1"]:focus { outline: none; }
+
+  /* Ensure interactive elements have visible focus states */
+  .nav-link:focus-visible,
+  .icon-button:focus-visible,
+  .menu-toggle:focus-visible,
+  .theme-toggle:focus-visible,
+  .tool-tile:focus-visible,
+  .capability-card:focus-visible,
+  .reporting-card:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 4px;
+  }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 200;
+  top: 0.7rem;
+  left: 0.7rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.6rem;
+  color: var(--surface);
+  background: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-label-tight);
+  text-transform: uppercase;
+  transform: translateY(-160%);
+  transition: transform 180ms ease;
+}
+.skip-link:focus { transform: translateY(0); }
+
+.scroll-progress {
+  position: fixed;
+  z-index: 150;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  pointer-events: none;
+}
+.scroll-progress span {
+  display: block;
+  width: var(--scroll-progress, 0%);
+  height: 100%;
+  background: var(--accent);
+  transform-origin: left;
+  transition: width 0.1s linear;
+}
+
+.image-loading {
+  filter: blur(20px);
+  transform: scale(1.05);
+  opacity: 0;
+  transition: filter var(--transition-slow), transform var(--transition-slow), opacity var(--transition-base);
+}
+
+.image-loaded {
+  filter: blur(0);
+  transform: scale(1);
+  opacity: 1;
+}
+
+.reveal-ready [data-stagger] {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+
+.reveal-ready [data-stagger].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section-shell {
+  width: min(var(--content-width), calc(100% - 3rem));
+  margin-inline: auto;
+}
+
+.content-section {
+  position: relative;
+  isolation: isolate;
+  padding-block: clamp(5.5rem, 9vw, 9rem);
+  overflow: clip;
+}
+
+.icon {
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke var(--transition-fast), transform var(--transition-fast);
+}
+
+/* Header */
+.site-header {
+  position: fixed;
+  z-index: 100;
+  top: 1.15rem;
+  left: 50%;
+  width: min(var(--content-width), calc(100% - 3rem));
+  transform: translateX(-50%);
+  border: 1px solid color-mix(in srgb, var(--line) 84%, transparent);
+  border-radius: 1rem;
+  background: var(--surface-glass);
+  box-shadow: var(--header-shadow);
+  -webkit-backdrop-filter: blur(18px) saturate(130%);
+  backdrop-filter: blur(18px) saturate(130%);
+  transition: top var(--transition-base), box-shadow var(--transition-base), background var(--transition-base), border-color var(--transition-base);
+}
+
+.site-header.scrolled {
+  top: 0;
+  border-color: color-mix(in srgb, var(--line) 60%, transparent);
+  box-shadow: 0 20px 60px color-mix(in srgb, var(--text) 15%, transparent);
+  background: color-mix(in srgb, var(--surface) 95%, transparent);
+}
+
+.header-inner {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.65rem 0.75rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+/* The TR monogram keeps its italic serif face: it is the logo mark, not copy. */
+.brand-mark {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.72rem;
+  color: var(--surface);
+  background: var(--text);
+  font: italic 700 1rem/1 Georgia, "Times New Roman", serif;
+  letter-spacing: -0.08em;
+  padding-right: 0.1rem;
+}
+
+.brand-copy { display: grid; line-height: 1.25; }
+.brand-copy strong {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.brand-copy small {
+  margin-top: 0.2rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: var(--weight-regular);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.primary-nav { min-width: 0; }
+.nav-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.05rem, 0.4vw, 0.4rem);
+  padding: 0;
+  list-style: none;
+}
+.nav-link {
+  position: relative;
+  display: block;
+  padding: 0.7rem 0.55rem;
+  border-radius: 0.55rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: var(--weight-regular);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  right: 0.6rem;
+  bottom: 0.42rem;
+  left: 0.6rem;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-fast);
+}
+.nav-link:hover,
+.nav-link[aria-current="location"] {
+  color: var(--text);
+  background: var(--surface-soft);
+}
+.nav-link[aria-current="location"]::after { transform: scaleX(1); }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.icon-button {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 2.7rem;
+  height: 2.7rem;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--text);
+  background: transparent;
+  transition: color var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast);
+}
+.icon-button:focus-visible,
+.menu-toggle:focus-visible,
+.theme-toggle:focus-visible {
+  outline-offset: 2px;
+}
+.icon-button:hover {
+  border-color: var(--line-strong);
+  background: var(--surface-soft);
+  transform: scale(1.05);
+}
+.icon-button:active { transform: scale(0.94); }
+
+.hire-me-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  height: 2.7rem;
+  padding-inline: 1rem;
+  border: 1px solid var(--text);
+  border-radius: 0.72rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-label-tight);
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast);
+  text-decoration: none;
+}
+.hire-me-button .icon { width: 0.95rem; height: 0.95rem; transition: transform var(--transition-fast); }
+.hire-me-button:hover { color: var(--surface); background: var(--text); }
+.hire-me-button:hover .icon { transform: translateX(2px); }
+.hire-me-button:active { transform: scale(0.97); }
+
+.hire-me-button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.moon-icon,
+.close-icon { display: none; }
+html[data-theme="dark"] .sun-icon { display: none; }
+html[data-theme="dark"] .moon-icon { display: block; }
+.site-header[data-open="true"] .menu-icon { display: none; }
+.site-header[data-open="true"] .close-icon { display: block; }
+.menu-toggle { display: none; }
+
+/* Shared section headings */
+.section-intro {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 3rem;
+  margin-bottom: clamp(2.8rem, 5vw, 4.5rem);
+}
+.eyebrow {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: var(--weight-regular);
+  line-height: 1.5;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.section-title {
+  margin-top: 1rem;
+  font-size: clamp(2rem, 4vw + 0.5rem, 4rem);
+  font-weight: var(--weight-regular);
+  line-height: 1.04;
+  letter-spacing: -0.022em;
+}
+.section-title span { color: var(--muted); }
+.section-lead {
+  width: min(100%, 27rem);
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+/* Optional images */
+.media-fallback {
+  grid-area: 1 / 1;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 0.65rem;
+  min-height: inherit;
+  padding: 1.5rem;
+  color: var(--muted);
+  text-align: center;
+  transition: opacity var(--transition-base);
+}
+.media-fallback strong { color: var(--text); font-size: 0.9rem; font-weight: var(--weight-medium); }
+.media-fallback > span { font-size: 0.78rem; }
+
+/* Progressive reveal. Content stays visible if main.js never initializes. */
+.reveal-ready .reveal {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+.reveal-ready .reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Contact form styling lives in pages.css with the rest of the contact
+   section so the whole experience is designed in one place. */
+
+.button:disabled,
+.button:disabled:hover {
+  cursor: default;
+  opacity: 0.78;
+  transform: none;
+  box-shadow: none;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.15rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-label-tight);
+  text-transform: uppercase;
+  line-height: 1.4;
+  white-space: nowrap;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+
+.button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.button:active {
+  transform: scale(0.96);
+}
+
+.button-primary {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.button-primary:hover {
+  background: color-mix(in srgb, var(--accent) 90%, black);
+  border-color: color-mix(in srgb, var(--accent) 90%, black);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+.button-ghost {
+  border-color: var(--line);
+  background: transparent;
+  color: var(--text);
+}
+
+.button-ghost:hover {
+  border-color: var(--line-strong);
+  background: var(--surface-soft);
+  transform: translateY(-1px);
+}
+
+.button-outline {
+  border-color: var(--line);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.button-outline:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+/* Footer */
+/* Footer: no band of its own, so the one background material runs straight
+   through it and the page never breaks at the last border. */
+.site-footer {
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  transition: border-color var(--transition-slow);
+}
+.site-footer .section-shell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-block: 1.8rem;
+  font-size: 0.9rem;
+}
+.site-footer div > div { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; }
+.site-footer a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--tracking-label-tight);
+  text-transform: uppercase;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+.site-footer a:hover { color: var(--text); transform: translateY(-1px); }
+.site-footer a .icon { width: 0.9rem; height: 0.9rem; transition: transform var(--transition-fast); }
+.site-footer a:hover .icon { transform: translateX(2px); }
+
+/* Navigation collapses only after JavaScript marks the document ready. */
+@media (max-width: 72rem) {
+  .header-inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "brand actions" "nav nav";
+  }
+  .brand { grid-area: brand; }
+  .header-actions { grid-area: actions; }
+  .primary-nav {
+    grid-area: nav;
+    border-top: 1px solid var(--line);
+    margin-top: 0.35rem;
+    padding-top: 0.55rem;
+  }
+  .nav-list { flex-wrap: wrap; }
+  .nav-ready .menu-toggle { display: inline-grid; }
+  .nav-ready .primary-nav { display: none; }
+  .nav-ready .site-header[data-open="true"] .primary-nav { display: block; }
+  .nav-ready .site-header[data-open="true"] { max-height: calc(100svh - 2rem); overflow-y: auto; }
+}
+
+@media (max-width: 48rem) {
+  .section-shell { width: calc(100% - 2rem); }
+  .section-intro { align-items: start; flex-direction: column; gap: 1.5rem; }
+  .section-lead { width: min(100%, 37rem); }
+  .content-section { padding-block: 5rem; }
+}
+
+@media (max-width: 40rem) {
+  :root { --header-height: 6rem; }
+  .site-header { top: 0.75rem; width: calc(100% - 1.5rem); border-radius: 0.85rem; }
+  .header-inner { gap: 0.5rem; padding: 0.55rem; }
+  .brand { gap: 0.5rem; }
+  .brand-mark { width: 2.35rem; height: 2.35rem; font-size: 0.9rem; }
+  .brand-copy strong { font-size: 0.66rem; letter-spacing: 0.1em; }
+  .brand-copy small { display: none; }
+  .icon-button { width: 2.35rem; height: 2.35rem; }
+  .hire-me-button { height: 2.35rem; padding-inline: 0.75rem; }
+  .hire-me-button .icon { display: none; }
+  .header-actions { gap: 0.3rem; }
+  .nav-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.2rem; }
+  .nav-link { padding: 0.8rem; white-space: normal; letter-spacing: 0.1em; }
+  .section-title { font-size: clamp(2rem, 8vw, 2.5rem); }
+  .site-footer .section-shell { align-items: start; flex-direction: column; gap: 0.4rem; }
+}
+
+@media (max-width: 23rem) {
+  .brand-copy strong { max-width: 4.5rem; white-space: normal; line-height: 1.35; }
+  .hire-me-button { padding-inline: 0.6rem; font-size: 0.66rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    scroll-behavior: auto;
+    animation-duration: 0.001ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.001ms;
+  }
+  .reveal-ready .reveal { opacity: 1; transform: none; }
+  .marquee-track { animation: none; transform: none; }
+  [data-stagger] { opacity: 1; transform: none; transition: none; }
+}
+
+@media (forced-colors: active) {
+  .brand-mark { border: 1px solid CanvasText; }
+  .nav-link[aria-current="location"] { outline: 1px solid Highlight; }
+}
+
+@media print {
+  .site-header, .skip-link, .scroll-progress, .page-background { display: none !important; }
+  html, body { color: #000 !important; background: #fff !important; }
+  .content-section { padding-block: 2rem; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  [data-stagger] { opacity: 1 !important; transform: none !important; }
+  .site-footer { background: #fff; }
+}

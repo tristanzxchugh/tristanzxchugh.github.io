@@ -1,0 +1,154 @@
+/* First-visit greeting loader: a fixed overlay, one centred greeting row, and
+   a curved lift that hands the page back to the hero.
+
+   Only two classes on <html> drive it: .loader-active, written by the inline
+   head script before the first paint, and .loader-leaving, added by
+   js/loader.js when the sequence is over. Colours, type and the grain tile
+   are read from the existing tokens in global.css, so light and dark follow
+   the saved theme with no second theme system and no flash of the wrong
+   background. */
+
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: none;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: var(--text);
+  background-color: var(--page);
+  /* Percentage on both sides of the slash so the curve can interpolate
+     cleanly from a flat edge to a soft, wide one while the screen lifts. */
+  border-radius: 0% 0% 0% 0% / 0% 0% 0% 0%;
+  opacity: 1;
+  transform: translateY(0);
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  will-change: transform;
+  transition:
+    transform 800ms cubic-bezier(0.76, 0, 0.24, 1),
+    border-radius 420ms cubic-bezier(0.76, 0, 0.24, 1),
+    opacity 240ms ease;
+}
+
+html.loader-active .loader { display: flex; }
+html.loader-active { overscroll-behavior: none; }
+
+/* The site's single noise tile, at the site's own opacity, sharing the same
+   fixed origin as .page-background so the lift never exposes a seam. */
+.loader::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("../assets/images/background-grain.png");
+  background-repeat: repeat;
+  background-size: var(--page-grain-size);
+  opacity: var(--page-grain);
+}
+
+/* Exit: the overlay travels up past the top edge while its bottom opens into
+   one wide arc, so the centre of the edge trails the corners and the hero
+   underneath is uncovered from the bottom of the viewport upward. */
+.loader.is-leaving {
+  border-radius: 0% 0% 50% 50% / 0% 0% 8% 8%;
+  transform: translateY(-110%);
+}
+
+/* Greeting row: one dot, one slot. The slot is sized by the greeting resting
+   in it, so the dot always sits against the text and the ink stays centred;
+   the word that is leaving lifts out of flow and parks over the slot, fading
+   away without stretching it. */
+.loader__greeting {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.6rem, 1vw, 0.9rem);
+  margin: 0;
+  color: var(--text);
+  /* Space Grotesk carries the Latin greetings; the system Japanese faces
+     behind it keep こんにちは on a real glyph instead of a last-resort box.
+     Nothing extra is downloaded. */
+  font-family: "Space Grotesk", "Hiragino Sans", "Hiragino Kaku Gothic ProN",
+    "Noto Sans JP", "Yu Gothic UI", "Yu Gothic", Meiryo, system-ui,
+    -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(1.875rem, 4.4vw, 3.625rem);
+  font-weight: var(--weight-regular);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+.loader__dot {
+  flex: 0 0 auto;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.loader__words {
+  position: relative;
+  display: grid;
+  justify-items: center;
+}
+
+.loader__word {
+  grid-area: 1 / 1;
+  align-self: center;
+  justify-self: center;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+/* Only the resting word is in flow, so the slot is exactly its width. The
+   outgoing word keeps its place over the slot and fades there. */
+.loader__word:not(.is-active) {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.loader__word.is-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* The hero is already rendered underneath; it only settles the last few
+   pixels as the screen lifts, so the reveal reads as one movement. */
+html.loader-active .hero {
+  opacity: 0.92;
+  transform: translateY(20px);
+  transition:
+    opacity 750ms cubic-bezier(0.76, 0, 0.24, 1),
+    transform 750ms cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+html.loader-active.loader-leaving .hero {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* No curtain and no travel: the static greeting fades and the page is
+     handed straight back, with nothing left waiting on an animation. */
+  .loader.is-leaving {
+    border-radius: 0% 0% 0% 0% / 0% 0% 0% 0%;
+    opacity: 0;
+    transform: none;
+    transition: opacity 240ms ease;
+  }
+
+  html.loader-active .hero { transition-duration: 0.001ms; }
+}
+
+@media print {
+  .loader { display: none !important; }
+}
