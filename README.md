@@ -36,5 +36,5 @@ placeholder until you add the real file at the exact path it expects.
 
 ## Editing contact info
 
-- Email/phone appear in the About section's contact card and in the footer. Search for `reyestristanreyes@gmail.com` and `+639219282896` to update both places.
+- Email/phone appear in the header contact links, the About section's contact card, the form fallback, and in the footer. Search for `reyestristanhilario@gmail.com` and `+639219282896` to update both places.
 - The OnlineJobs.ph link in the contact card is a placeholder. Replace the `href` on that link in `index.html` with your real profile URL.

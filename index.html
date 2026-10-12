@@ -105,6 +105,28 @@
           <li><a class="nav-link" href="#about">About</a></li>
           <li><a class="nav-link" href="#contact">Contact</a></li>
         </ul>
+
+        <!-- Quiet contact icons. They sit at the end of the navigation column,
+             beside the theme toggle and Hire Me button, and fold into the
+             disclosure panel with the rest of the links once the menu
+             collapses, so the bar never gets crowded. -->
+        <ul class="header-contact" aria-label="Direct contact">
+          <li>
+            <a class="header-contact__link" href="mailto:reyestristanhilario@gmail.com" aria-label="Email Tristan Reyes" title="reyestristanhilario@gmail.com">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                <path d="m3.5 6.5 8.5 6.5 8.5-6.5"></path>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a class="header-contact__link" href="https://wa.me/639219282896" target="_blank" rel="noopener noreferrer" aria-label="Contact Tristan Reyes on WhatsApp" title="WhatsApp: +63 921 928 2896">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 4h3.6l1.4 4.5-2.2 1.8a13 13 0 0 0 6 6l1.8-2.2 4.4 1.4V19a2 2 0 0 1-2.2 2A16 16 0 0 1 3 5.2 2 2 0 0 1 5 4Z"></path>
+              </svg>
+            </a>
+          </li>
+        </ul>
       </nav>
 
       <div class="header-actions flex items-center">
@@ -117,7 +139,7 @@
             <path d="M20.5 14.3A8.5 8.5 0 0 1 9.7 3.5 8.6 8.6 0 1 0 20.5 14.3Z"></path>
           </svg>
         </button>
-        <a href="mailto:reyestristanreyes@gmail.com?subject=Portfolio%20Inquiry" class="hire-me-button" aria-label="Hire Me - open email">
+        <a href="#contact" class="hire-me-button" aria-label="Hire Me - scroll to the contact form">
           Hire Me
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"></path></svg>
         </a>
@@ -821,7 +843,7 @@
 
             <ul class="contact-methods">
               <li>
-                <a class="contact-method" href="mailto:reyestristanreyes@gmail.com">
+                <a class="contact-method" href="mailto:reyestristanhilario@gmail.com">
                   <span class="contact-method__icon" aria-hidden="true">
                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
                       <rect x="3" y="5" width="18" height="14" rx="2"></rect>
@@ -830,7 +852,7 @@
                   </span>
                   <span class="contact-method__body">
                     <span class="contact-method__label">Email</span>
-                    <span class="contact-method__value">reyestristanreyes@gmail.com</span>
+                    <span class="contact-method__value">reyestristanhilario@gmail.com</span>
                   </span>
                   <span class="contact-method__arrow" aria-hidden="true">
                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
@@ -945,7 +967,7 @@
                   <p class="contact-alert__detail" data-contact-alert-detail hidden></p>
                   <div class="contact-alert__actions">
                     <button class="contact-alert__retry" type="button" data-contact-retry>Try again</button>
-                    <a class="contact-alert__link" data-contact-alert-link href="mailto:reyestristanreyes@gmail.com">reyestristanreyes@gmail.com</a>
+                    <a class="contact-alert__link" data-contact-alert-link href="mailto:reyestristanhilario@gmail.com">reyestristanhilario@gmail.com</a>
                   </div>
                 </div>
               </div>
@@ -993,25 +1015,6 @@
   <footer class="site-footer">
     <div class="section-shell">
       <p>© <span data-year>2026</span> Tristan Reyes · Digital Marketing</p>
-      <div>
-        <a href="mailto:reyestristanreyes@gmail.com" aria-label="Email Tristan Reyes">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-            <path d="m3.5 6.5 8.5 6.5 8.5-6.5"></path>
-          </svg>
-        </a>
-        <a href="tel:+639219282896">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M5 4h3.6l1.4 4.5-2.2 1.8a13 13 0 0 0 6 6l1.8-2.2 4.4 1.4V19a2 2 0 0 1-2.2 2A16 16 0 0 1 3 5.2 2 2 0 0 1 5 4Z"></path>
-          </svg>
-          +63 921 928 2896
-        </a>
-        <a href="#home">Back to top
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 20V4m-6 6 6-6 6 6"></path>
-          </svg>
-        </a>
-      </div>
     </div>
   </footer>
 </body>

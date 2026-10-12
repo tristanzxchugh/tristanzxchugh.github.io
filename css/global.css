@@ -348,7 +348,16 @@ html.no-js [data-portrait]:not([src]) { display: none; }
   white-space: nowrap;
 }
 
-.primary-nav { min-width: 0; }
+/* The navigation column also carries the quiet direct-contact details, so the
+   header keeps three columns: the links stay centred in the space that is
+   left, and the contact block never pushes the actions out of line. */
+.primary-nav {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(0.75rem, 1.4vw, 1.4rem);
+}
 .nav-list {
   display: flex;
   align-items: center;
@@ -390,6 +399,35 @@ html.no-js [data-portrait]:not([src]) { display: none; }
   background: var(--surface-soft);
 }
 .nav-link[aria-current="location"]::after { transform: scaleX(1); }
+
+/* Header contact: two quiet icons beside the theme toggle. They inherit the
+   shared .icon treatment, so the glyph size matches the toggle, and the muted
+   colour keeps them deliberately quieter than the navigation. */
+.header-contact {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.35rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.header-contact__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2rem;
+  padding-inline: 0.3rem;
+  color: var(--muted);
+  opacity: 0.8;
+  transition: color var(--transition-fast), opacity var(--transition-fast);
+}
+.header-contact__link:hover { color: var(--text); opacity: 1; }
+.header-contact__link:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
 
 .header-actions {
   display: flex;
@@ -604,30 +642,13 @@ html[data-theme="dark"] .moon-icon { display: block; }
 .site-footer .section-shell {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
+  justify-content: center;
   padding-block: 1.8rem;
+  /* 3.6rem of padding plus the 2.75rem row the removed controls used to
+     occupy: the footer keeps the exact height it had before they went. */
+  min-height: calc(3.6rem + 2.75rem);
   font-size: 0.9rem;
 }
-.site-footer div > div { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; }
-.site-footer a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.55rem;
-  min-width: 2.75rem;
-  min-height: 2.75rem;
-  color: var(--muted);
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: var(--weight-regular);
-  letter-spacing: var(--tracking-label-tight);
-  text-transform: uppercase;
-  transition: color var(--transition-fast), transform var(--transition-fast);
-}
-.site-footer a:hover { color: var(--text); transform: translateY(-1px); }
-.site-footer a .icon { width: 0.9rem; height: 0.9rem; transition: transform var(--transition-fast); }
-.site-footer a:hover .icon { transform: translateX(2px); }
 
 /* Navigation collapses only after JavaScript marks the document ready. */
 @media (max-width: 72rem) {
@@ -639,11 +660,22 @@ html[data-theme="dark"] .moon-icon { display: block; }
   .header-actions { grid-area: actions; }
   .primary-nav {
     grid-area: nav;
+    display: block;
+    gap: 0;
     border-top: 1px solid var(--line);
     margin-top: 0.35rem;
     padding-top: 0.55rem;
   }
   .nav-list { flex-wrap: wrap; }
+  /* The contact icons ride along inside the disclosure panel, so the
+     collapsed bar keeps exactly the room it has today. */
+  .header-contact {
+    gap: 0.5rem;
+    margin-top: 0.65rem;
+    padding-top: 0.65rem;
+    border-top: 1px solid var(--line);
+  }
+  .header-contact__link { min-height: 2.75rem; min-width: 2.75rem; }
   .nav-ready .menu-toggle { display: inline-grid; }
   .nav-ready .primary-nav { display: none; }
   .nav-ready .site-header[data-open="true"] .primary-nav { display: block; }
@@ -672,7 +704,6 @@ html[data-theme="dark"] .moon-icon { display: block; }
   .nav-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.2rem; }
   .nav-link { padding: 0.8rem; white-space: normal; letter-spacing: 0.1em; }
   .section-title { font-size: clamp(2rem, 8vw, 2.5rem); }
-  .site-footer .section-shell { align-items: start; flex-direction: column; gap: 0.4rem; }
 }
 
 @media (max-width: 23rem) {
